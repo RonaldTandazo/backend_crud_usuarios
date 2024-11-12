@@ -40,11 +40,75 @@ class UsuariosController extends Controller
 
     public function store(Request $request){
         try{
-            log::alert($request);
+            $message = null;
+
+            $verificar = $this->serviceUsuarios->verificar($request['email']);
+            if (!$verificar->ok) {
+                throw new Exception($verificar->msgerror());
+            }
+
+            $verificar = $verificar->data;
+
+            if(!$verificar){
+                $message = 'El usuario ya existe';
+            }else{
+                $store = $this->serviceUsuarios->store($request);
+                if (!$store->ok) {
+                    throw new Exception($store->msgerror());
+                }
+
+                $message = 'Usuario Registrado con Éxito';
+            }
 
             return response()->json([
                 'ok' => true,
-                'data' => null,
+                'data' => $message,
+              ], 200);
+        } catch (Exception $e) {
+            Log::error("ERROR " . __FILE__ . ":" . __FUNCTION__ . " -> " . $e);
+            return response()->json([
+                'ok' => false,
+                'text' => ['message' => $e->getMessage()]
+            ], 200);
+        }
+    }
+
+    public function update(Request $request, $id_usuario){
+        try{
+
+            $update = $this->serviceUsuarios->update($id_usuario, $request);
+            if (!$update->ok) {
+                throw new Exception($update->msgerror());
+            }
+
+            $message = 'Usuario Actualizado con Éxito';
+
+            return response()->json([
+                'ok' => true,
+                'data' => $message,
+              ], 200);
+        } catch (Exception $e) {
+            Log::error("ERROR " . __FILE__ . ":" . __FUNCTION__ . " -> " . $e);
+            return response()->json([
+                'ok' => false,
+                'text' => ['message' => $e->getMessage()]
+            ], 200);
+        }
+    }
+
+    public function delete(Request $request, $id_usuario){
+        try{
+
+            $delete = $this->serviceUsuarios->destroy($id_usuario, $request);
+            if (!$delete->ok) {
+                throw new Exception($delete->msgerror());
+            }
+
+            $message = 'Usuario Eliminado con Éxito';
+
+            return response()->json([
+                'ok' => true,
+                'data' => $message,
               ], 200);
         } catch (Exception $e) {
             Log::error("ERROR " . __FILE__ . ":" . __FUNCTION__ . " -> " . $e);
