@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group([
+/*Route::group([
     'prefix' => 'departamentos'
 ], function () {
     Route::get('get_all_departamentos', 'App\Http\Controllers\DepartamentosController@get_all_departamentos');
@@ -23,3 +23,4 @@ Route::group([
     Route::put('update/{id_usuario}', 'App\Http\Controllers\UsuariosController@update');
     Route::delete('delete/{id_usuario}', 'App\Http\Controllers\UsuariosController@delete');
 });
+*/
