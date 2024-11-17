@@ -93,7 +93,7 @@ class UsuariosService implements IService
         $response = new Response();
         try{
             $usuarios = Usuarios::select(
-                'usuarios.id', 'usuarios.primerNombre as primer_nombre', 'usuarios.segundoNombre as segundo_nombre',
+                'usuarios.id', 'usuarios.usuario', 'usuarios.primerNombre as primer_nombre', 'usuarios.segundoNombre as segundo_nombre',
                 'usuarios.primerApellido as primer_apellido', 'usuarios.segundoApellido as segundo_apellido', 'usuarios.email',
                 'departamentos.id as id_departamento', 'departamentos.nombre as departamento', 'cargos.id as id_cargo', 'cargos.nombre as cargo'
             )
@@ -129,6 +129,7 @@ class UsuariosService implements IService
         $response = new Response();
         try{
             $email = trim(mb_strtolower($email));
+            log::alert($email);
             $usuario = Usuarios::whereRaw("LOWER(LTRIM(RTRIM(usuarios.email))) = ?", [$email])->first();
 
             $response->set_data($usuario);

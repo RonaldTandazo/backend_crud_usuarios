@@ -9,7 +9,7 @@ class Departamentos extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlsrv';
+    protected $connection = 'pgsql';
     protected $table = 'departamentos';
     protected $primaryKey = 'id';
 

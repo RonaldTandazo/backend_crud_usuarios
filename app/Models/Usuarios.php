@@ -9,7 +9,7 @@ class Usuarios extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlsrv';
+    protected $connection = 'pgsql';
     protected $table = 'usuarios';
     protected $primaryKey = 'id';
 

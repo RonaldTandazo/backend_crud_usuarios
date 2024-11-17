@@ -9,7 +9,7 @@ class Cargos extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlsrv';
+    protected $connection = 'pgsql';
     protected $table = 'cargos';
     protected $primaryKey = 'id';
 

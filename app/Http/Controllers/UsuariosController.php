@@ -49,7 +49,7 @@ class UsuariosController extends Controller
 
             $verificar = $verificar->data;
 
-            if(!$verificar){
+            if($verificar){
                 $message = 'El usuario ya existe';
             }else{
                 $store = $this->serviceUsuarios->store($request);
