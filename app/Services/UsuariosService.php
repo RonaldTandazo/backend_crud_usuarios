@@ -89,7 +89,7 @@ class UsuariosService implements IService
 
     public function paginate($perPage, $columns = ['*'], $pageName = 'page', $page = null) {}
 
-    public function get_usuarios($request){
+    public function get_usuarios($id_departamento, $id_cargo, $page, $perPage){
         $response = new Response();
         try{
             $usuarios = Usuarios::select(
@@ -105,14 +105,14 @@ class UsuariosService implements IService
                 $join->on('usuarios.idCargo', '=', 'cargos.id')
                      ->where('cargos.activo', true);
             })
-            ->when(!empty($request['id_departamento']), function($query) use($request) {
-                $query->where('idDepartamento', $request['id_departamento']);
+            ->when($id_departamento != 0, function($query) use($id_departamento) {
+                $query->where('usuarios.idDepartamento', $id_departamento);
             })
-            ->when(!empty($request['id_cargo']), function($query) use($request) {
-                $query->where('idCargo', $request['id_cargo']);
+            ->when($id_cargo != 0, function($query) use($id_cargo) {
+                $query->where('usuarios.idCargo', $id_cargo);
             })
             ->where('usuarios.activo', true)
-            ->get();
+            ->paginate($perPage, ['*'], 'page', $page);
 
             $response->set_data($usuarios);
         }catch(Exception $e){
@@ -129,8 +129,7 @@ class UsuariosService implements IService
         $response = new Response();
         try{
             $email = trim(mb_strtolower($email));
-            log::alert($email);
-            $usuario = Usuarios::whereRaw("LOWER(LTRIM(RTRIM(usuarios.email))) = ?", [$email])->first();
+            $usuario = Usuarios::whereRaw("LOWER(LTRIM(RTRIM(usuarios.email))) = ?", [$email])->where('activo', true)->first();
 
             $response->set_data($usuario);
         }catch(Exception $e){

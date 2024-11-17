@@ -34,8 +34,8 @@ Route::group([
 Route::group([
     'prefix' => 'usuarios'
 ], function () {
-    Route::get('get_usuarios', 'App\Http\Controllers\UsuariosController@get_usuarios');
+    Route::get('get_usuarios/{id_departamento}/{id_cargo}/{page}/{perPage}', 'App\Http\Controllers\UsuariosController@get_usuarios');
     Route::post('store', 'App\Http\Controllers\UsuariosController@store');
-    Route::put('update', 'App\Http\Controllers\UsuariosController@update');
-    Route::delete('delete', 'App\Http\Controllers\UsuariosController@delete');
+    Route::put('update/{id_usuario}', 'App\Http\Controllers\UsuariosController@update');
+    Route::delete('delete/{id_usuario}', 'App\Http\Controllers\UsuariosController@delete');
 });

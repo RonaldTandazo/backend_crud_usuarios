@@ -20,8 +20,8 @@ class Cargos extends Model
         'idUsuarioCreacion',
     ];
 
-    public function usuarios()
-    {
-        return $this->hasMany(Usuario::class, 'idCargo', 'id');
-    }
+    // public function usuarios()
+    // {
+    //     return $this->hasMany(Usuario::class, 'idCargo', 'id');
+    // }
 }

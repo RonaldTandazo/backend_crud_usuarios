@@ -16,15 +16,14 @@ class UsuariosController extends Controller
         $this->serviceUsuarios = new UsuariosService();
     }
 
-    public function get_usuarios(Request $request){
+    public function get_usuarios($id_departamento, $id_cargo, $page = 1, $perPage = 10){
         try{
-            $usuarios = $this->serviceUsuarios->get_usuarios($request);
+            $usuarios = $this->serviceUsuarios->get_usuarios($id_departamento, $id_cargo, $page, $perPage);
             if (!$usuarios->ok) {
                 throw new Exception($usuarios->msgerror());
             }
 
             $data = $usuarios->data;
-
             return response()->json([
                 'ok' => true,
                 'data' => $data,
@@ -75,7 +74,6 @@ class UsuariosController extends Controller
 
     public function update(Request $request, $id_usuario){
         try{
-
             $update = $this->serviceUsuarios->update($id_usuario, $request);
             if (!$update->ok) {
                 throw new Exception($update->msgerror());

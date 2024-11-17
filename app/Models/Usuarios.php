@@ -24,13 +24,13 @@ class Usuarios extends Model
         'idCargo',
     ];
 
-    public function departamento()
-    {
-        return $this->belongsTo(Departamento::class, 'idDepartamento', 'id');
-    }
+    // public function departamento()
+    // {
+    //     return $this->belongsTo(Departamento::class, 'idDepartamento', 'id');
+    // }
 
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'idCargo', 'id');
-    }
+    // public function cargo()
+    // {
+    //     return $this->belongsTo(Cargo::class, 'idCargo', 'id');
+    // }
 }

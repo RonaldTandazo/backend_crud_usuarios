@@ -20,8 +20,8 @@ class Departamentos extends Model
         'idUsuarioCreacion',
     ];
 
-    public function usuarios()
-    {
-        return $this->hasMany(Usuario::class, 'idDepartamento', 'id');
-    }
+    // public function usuarios()
+    // {
+    //     return $this->hasMany(Usuario::class, 'idDepartamento', 'id');
+    // }
 }
